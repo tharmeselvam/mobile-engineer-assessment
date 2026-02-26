@@ -54,8 +54,6 @@ const TransactionDetailsScreen = () => {
         }
     }
 
-
-
     const isOutgoing = transaction.amount < 0
 
     return (

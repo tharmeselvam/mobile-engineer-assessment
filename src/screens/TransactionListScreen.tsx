@@ -1,7 +1,7 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types/rootStackParamList";
 import { useNavigation } from "@react-navigation/native";
-import { FlatList, StyleSheet, View } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from "react-native";
 import TransactionListItem from "../components/TransactionListItem";
 import { useTransactionsStore } from "../store/useTransactionsStore";
 import { useEffect } from "react";
@@ -25,13 +25,19 @@ const TransactionListScreen = () => {
 
     return (
         <View style={styles.container}>
-            <FlatList
-                data={transactions}
-                keyExtractor={(item) => item.refId}
-                renderItem={({item}) => (
-                    <TransactionListItem transaction={item} onPress={() => handlePress(item.refId)} />
-                )}
-            />
+            { isLoading ? (
+                <ActivityIndicator size="large" color="#0071db" />
+            ) : error ? (
+                <Text style={styles.errorText}>Failed to load transactions. Please try again.</Text>
+            ) : (
+                <FlatList
+                    data={transactions}
+                    keyExtractor={(item) => item.refId}
+                    renderItem={({item}) => (
+                        <TransactionListItem transaction={item} onPress={() => handlePress(item.refId)} />
+                    )}
+                />
+            )}
         </View>
     )
 }
@@ -41,8 +47,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f5f5f5',
         padding: 12,
-
     },
+    errorText: {
+        color: '#747474',
+        textAlign: 'center',
+        marginTop: 20,
+        fontSize: 16,
+    }
 })
 
 export default TransactionListScreen
