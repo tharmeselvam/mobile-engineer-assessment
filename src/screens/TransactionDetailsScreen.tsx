@@ -2,6 +2,7 @@ import { RouteProp, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "../types/rootStackParamList";
 import { useTransactionsStore } from "../store/useTransactionsStore";
 import { Alert, Button, ScrollView, Share, StyleSheet, Text, View } from "react-native";
+import { generatePDF } from 'react-native-html-to-pdf';
 
 type DetailsRouteProp = RouteProp<
     RootStackParamList,
@@ -25,19 +26,35 @@ const TransactionDetailsScreen = () => {
 
     const handleShare = async () => {
         try {
-            const message = `
-                Transaction Details
-                Reference ID: ${transaction.refId}
-                Recipient: ${transaction.recipientName}
-                TransferName: ${transaction.transferName}
-                Date: ${transaction.transferDate}
-                Amount: RM ${Math.abs(transaction.amount).toFixed(2)}
+            const htmlContent = `
+                <h2>Transaction Details</h2>
+                <p><strong>Reference ID:</strong> ${transaction.refId}</p>
+                <p><strong>Recipient Name:</strong> ${transaction.recipientName}</p>
+                <p><strong>Transfer Name:</strong> ${transaction.transferName}</p>
+                <p><strong>Date:</strong> ${new Date(transaction.transferDate).toLocaleDateString()}</p>
+                <p><strong>Amount:</strong> RM ${Math.abs(transaction.amount).toFixed(2)}</p>
             `
-            await Share.share({message})
+
+            const options = {
+                html: htmlContent,
+                fileName: `Transaction_${transaction.refId}`,
+                base64: true,
+            }
+
+            const file = await generatePDF(options)
+
+            console.log(file)
+
+            await Share.share({
+                url: `file://${file.filePath}`,
+                title: 'Transaction Details',
+            })
         } catch (error) {
             Alert.alert('Error', 'Failed to share transaction details.')
         }
     }
+
+
 
     const isOutgoing = transaction.amount < 0
 
