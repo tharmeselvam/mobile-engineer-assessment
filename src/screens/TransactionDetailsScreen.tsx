@@ -54,8 +54,6 @@ const TransactionDetailsScreen = () => {
         }
     }
 
-
-
     const isOutgoing = transaction.amount < 0
 
     return (
@@ -87,8 +85,8 @@ const TransactionDetailsScreen = () => {
                 </Text>
             </View>
 
-            <View style={styles.button}>
-                <Button title="Share" onPress={handleShare} />
+            <View style={styles.buttonContainer}>
+                <Button title="Share" onPress={handleShare} color="#0077ff" />
             </View>
 
         </ScrollView>
@@ -118,7 +116,10 @@ const styles = StyleSheet.create({
     },
     incoming: { color: 'green' },
     outgoing: { color: 'red' },
-    button: { marginTop: 32, },
+    buttonContainer: { marginTop: 32, },
+    button: {
+        backgroundColor: '#0066ff',
+    },
     errorText: {
         color: 'red',
         fontSize: 16,
