@@ -26,7 +26,7 @@ const TransactionListScreen = () => {
     return (
         <View style={styles.container}>
             { isLoading ? (
-                <ActivityIndicator size="large" color="#0066ff" />
+                <ActivityIndicator size="large" color="#0077ff" />
             ) : error ? (
                 <Text style={styles.errorText}>Failed to load transactions. Please try again.</Text>
             ) : (
@@ -40,8 +40,8 @@ const TransactionListScreen = () => {
                         <RefreshControl
                             refreshing={isLoading}
                             onRefresh={getTransactions}
-                            tintColor='#0066ff'
-                            colors={['#0066ff']}
+                            tintColor='#0077ff'
+                            colors={['#0077ff']}
                         />
                     }
                 />
