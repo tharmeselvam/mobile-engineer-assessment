@@ -1,7 +1,7 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types/rootStackParamList";
 import { useNavigation } from "@react-navigation/native";
-import { ActivityIndicator, FlatList, StyleSheet, Text, View } from "react-native";
+import { RefreshControl, ActivityIndicator, FlatList, StyleSheet, Text, View } from "react-native";
 import TransactionListItem from "../components/TransactionListItem";
 import { useTransactionsStore } from "../store/useTransactionsStore";
 import { useEffect } from "react";
@@ -26,7 +26,7 @@ const TransactionListScreen = () => {
     return (
         <View style={styles.container}>
             { isLoading ? (
-                <ActivityIndicator size="large" color="#0071db" />
+                <ActivityIndicator size="large" color="#0066ff" />
             ) : error ? (
                 <Text style={styles.errorText}>Failed to load transactions. Please try again.</Text>
             ) : (
@@ -36,6 +36,14 @@ const TransactionListScreen = () => {
                     renderItem={({item}) => (
                         <TransactionListItem transaction={item} onPress={() => handlePress(item.refId)} />
                     )}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={isLoading}
+                            onRefresh={getTransactions}
+                            tintColor='#0066ff'
+                            colors={['#0066ff']}
+                        />
+                    }
                 />
             )}
         </View>
