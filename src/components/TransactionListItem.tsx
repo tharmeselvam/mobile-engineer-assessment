@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: '#ddd',
         backgroundColor: '#fff',
+        elevation: 1,
+        marginBottom: 10,
+        borderRadius: 12,
     },
     left: {},
     transferName: {
