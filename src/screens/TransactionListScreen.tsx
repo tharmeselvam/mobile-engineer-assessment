@@ -3,7 +3,8 @@ import { RootStackParamList } from "../types/rootStackParamList";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList, StyleSheet, View } from "react-native";
 import TransactionListItem from "../components/TransactionListItem";
-import { Transaction } from "../models/Transaction";
+import { useTransactionsStore } from "../store/useTransactionsStore";
+import { useEffect } from "react";
 
 type NavigationProp = NativeStackNavigationProp<
     RootStackParamList,
@@ -12,6 +13,11 @@ type NavigationProp = NativeStackNavigationProp<
 
 const TransactionListScreen = () => {
     const navigation = useNavigation<NavigationProp>()
+    const { transactions, isLoading, error, getTransactions } = useTransactionsStore()
+
+    useEffect(() => {
+        getTransactions()
+    }, [])
 
     const handlePress = (refId: string) => {
         navigation.navigate('TransactionDetails', { refId })
@@ -20,7 +26,7 @@ const TransactionListScreen = () => {
     return (
         <View style={styles.container}>
             <FlatList
-                data={mockTransactions}
+                data={transactions}
                 keyExtractor={(item) => item.refId}
                 renderItem={({item}) => (
                     <TransactionListItem transaction={item} onPress={() => handlePress(item.refId)} />
