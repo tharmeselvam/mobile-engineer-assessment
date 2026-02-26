@@ -65,7 +65,7 @@ const TransactionDetailsScreen = () => {
 
             <View style={styles.row}>
                 <Text style={styles.label}>Amount:</Text>
-                <Text style={[styles.value, isOutgoing ? styles.outgoing : styles.incoming]}>
+                <Text style={[styles.amountValue, isOutgoing ? styles.outgoing : styles.incoming]}>
                     {isOutgoing ? '-' : '+' } RM {Math.abs(transaction.amount).toFixed(2)}
                 </Text>
             </View>
@@ -83,13 +83,22 @@ const styles = StyleSheet.create({
         padding: 16,
         backgroundColor: '#fff',
     },
-    row: { marginBottom: 16, },
+    row: { marginBottom: 25, },
     label: {
+        fontSize: 16,
         fontWeight: '500',
         color: '#555',
         marginBottom: 4,
     },
-    value: { fontSize: 16, },
+    value: { 
+        fontSize: 20,
+        fontWeight: '600',
+        color: '#2e2e2e',
+    },
+    amountValue: {
+        fontSize: 25,
+        fontWeight: '700',
+    },
     incoming: { color: 'green' },
     outgoing: { color: 'red' },
     button: { marginTop: 32, },
