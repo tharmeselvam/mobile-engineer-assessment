@@ -13,12 +13,24 @@ const RootNavigator = () => {
                 <Stack.Screen
                     name="TransactionList"
                     component={TransactionListScreen}
-                    options={{ title: 'Transactions' }}
+                    options={{
+                        title: 'Transactions',
+                        headerTitleStyle: {
+                            fontSize: 22,
+                            fontWeight: 'bold',
+                        }, 
+                    }}
                 />
                 <Stack.Screen
                     name="TransactionDetails"
                     component={TransactionDetailsScreen}
-                    options={{ title: 'Transaction Details' }}
+                    options={{
+                        title: 'Transaction Details',
+                        headerTitleStyle: {
+                            fontSize: 22,
+                            fontWeight: 'bold',
+                        },
+                    }}
                 />
             </Stack.Navigator>
         </NavigationContainer>
